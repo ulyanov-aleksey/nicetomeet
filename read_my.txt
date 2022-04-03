@@ -1,0 +1,3 @@
+admin_Django:
+login - nicetomeet
+password - nicetomeet
