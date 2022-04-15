@@ -1,9 +1,9 @@
-{% extends 'mainapp/base.html' %}
+{% extends 'authapp/base.html' %}
 {% load static %}
 
 
 {% block content %}
-    <form class="form-horizontal" action="{% url 'main:login' %}" method="post">
+    <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}">

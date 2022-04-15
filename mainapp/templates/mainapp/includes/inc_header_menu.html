@@ -1,0 +1,69 @@
+{% load static %}
+{% load watermark %}
+<ul class="menu">
+    <li>
+        <a href="{% url 'main'%}"{% if request.resolver_math.url_name == 'main' %} class="active" {% endif %}>
+            домой
+        </a>
+    </li>
+    <li>
+{#        <a href="{% url 'all_products:index' %}"{% if request.resolver_math.name == 'index' %} class="active" {% endif %}>#}
+            продукты
+        </a>
+    </li>
+    <li>
+{#        <a href="{% url 'cont'%}"{% if request.resolver_math.url_name == 'cont' %} class="active" {% endif %}>#}
+            контакты
+        </a>
+    </li>
+
+    {% if user.is_authenticated %}
+        <li>
+            <div class="#">
+                <a class="dropdown-toggle" href="" data-toggle="dropdown">
+
+{# """наложение водяного знака на аватар (через url), сделать подгонку под основное изображение"""#}
+                   <img src="{{ user.avatar.url|watermark:'test, position=50%x50%, opacity=80' }}">
+
+{#сделать пробелы!!!!#}
+                    {{ user.username|default:'Вы' }}{{ user.age }}{{ user.sity }}
+
+
+
+                    <span class="caret"></span>
+                </a>
+                <ul class="#">
+                    <li>
+{#                        <img src="/media/{{ user.avatar }}">#}
+{#                        <a href="{% url 'auth:edit' %}">#}
+                            профиль
+{#                        </a>#}
+                    </li>
+                    <li>
+{#                        <a href="{% url 'ordersapp:orders_list' %}">#}
+                            мои знакомства
+{#                        </a>#}
+                    </li>
+                </ul>
+            </div>
+        </li>
+    {% endif %}
+    {% if user.is_superuser %}
+        <li>
+{#            <a href="{% url 'admin:users' %}">админка</a>#}
+        </li>
+    {% endif %}
+    <li>
+        {% if user.is_authenticated %}
+{#            <a href="{% url 'auth:loguot' %}">выйти</a>#}
+        {% else %}
+{#            <a href="{% url 'auth:login' %}">войти</a>#}
+        {% endif %}
+    </li>
+</ul>
+<a href="#" class="search"></a>
+{#<a href="{% url 'basket:view' %}" class="basket">#}
+    <span>
+        {% if basket %} {{ basket.0.total_cost|floatformat:0 }} руб ({{ basket.0.total_quantity }}шт) {% endif %}
+    </span>
+</a>
